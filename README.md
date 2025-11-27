@@ -62,18 +62,59 @@
 
 ## 🛠️ 自訂單字
 
-編輯 `index.html` 中的 `wordsData` 陣列來新增或修改單字：
+### 字庫位置
+
+字庫檔案位於 `data/words.js`，可直接編輯此檔案來新增或修改單字。
+
+### 單字格式
+
+每個單字需要包含以下欄位：
 
 ```javascript
-const wordsData = [
-    {
-        word: "apple",           // 單字
-        syllables: ["ap", "ple"], // 音節拆解
-        chinese: "蘋果",          // 中文解釋
-        example: "I eat an apple every day." // 例句
-    },
-    // 新增更多單字...
-];
+{
+    word: "apple",              // 英文單字
+    syllables: ["ap", "ple"],   // 音節拆解（陣列）
+    chinese: "蘋果",            // 中文翻譯
+    example: "I eat an apple every day.", // 例句
+    category: "fruits"          // 分類（選填）
+}
+```
+
+### 可用分類
+
+| 分類 ID | 名稱 | 圖示 |
+|---------|------|------|
+| `fruits` | 水果 | 🍎 |
+| `animals` | 動物 | 🐾 |
+| `colors` | 顏色 | 🎨 |
+| `nature` | 自然 | 🌿 |
+| `food` | 食物 | 🍕 |
+| `daily` | 日常用品 | 📦 |
+| `places` | 地點 | 🏠 |
+| `people` | 人物/情感 | 👥 |
+| `others` | 其他 | 📚 |
+
+### 新增單字範例
+
+在 `data/words.js` 的 `words` 陣列中新增：
+
+```javascript
+{ word: "strawberry", syllables: ["straw", "ber", "ry"], chinese: "草莓", example: "I love strawberry cake.", category: "fruits" },
+```
+
+### 輔助函數
+
+字庫模組提供以下輔助函數：
+
+```javascript
+// 取得所有單字
+getWordsData()
+
+// 按分類取得單字
+getWordsByCategory("animals")
+
+// 取得字庫版本資訊
+getLibraryVersion()
 ```
 
 ## 🌐 瀏覽器支援
@@ -89,8 +130,10 @@ const wordsData = [
 
 ```
 iris-test-spelling-bee/
-├── index.html              # 主應用程式（單一檔案）
+├── index.html              # 主應用程式
 ├── README.md               # 專案說明文件
+├── data/
+│   └── words.js            # 字庫模組（可獨立更新）
 └── .github/
     └── workflows/
         └── deploy.yml      # GitHub Pages 自動部署設定
